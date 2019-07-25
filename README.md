@@ -1,3 +1,5 @@
+### more see [issue](https://github.com/13030112030/blog/issues)
+
 # 个人博客
 1.关于es6 箭头函数this 与 对象
   es6中箭头函数的一大特点是不绑定this的上下文，就算利用bind，call和apply等三种绑定this的函数对箭头函数的this进行绑定也不会生效，箭头函数的this指向顶层作用域上下文。
@@ -29,3 +31,4 @@
     // }
     console.log(obj.log()) // 1
   ```
+  
