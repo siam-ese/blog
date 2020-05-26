@@ -19,7 +19,7 @@ console.log(void 0); // undefined
 
 ```txt
     1. key必须是Object类型
-    2. key是弱引用的可以被垃圾回收
+    2. key是弱引用的可以被垃圾回收, 即当WeakMap中以某个obj为key的值，在obj被垃圾回收后，WeakMap中obj key对应的值也不存在了
 ```
 
 ### 2. **WeakMap** 范例
@@ -30,8 +30,8 @@ var obj = {
   a: 1,
 };
 map.set(obj, 2);
-console.log('obj value is ', map.get(obj)); // obj value is  2
+console.log('obj value is ', map.get(obj)); // log: obj value is  2
 obj = void 0;
 // 无法引用后 被垃圾回收
-console.log('map has obj key ?', map.has(obj)); // map has obj key ? false
+console.log('map has obj key ?', map.has(obj)); // log: map has obj key ? false
 ```
