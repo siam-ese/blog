@@ -3,7 +3,7 @@ type AnyFunction = (...args: any[]) => any;
 type FunctionArray = AnyFunction[];
 
 function compose(fns: FunctionArray) {
-  return (x) => {
+  return (x: any) => {
     const composer = fns.reduce(
       (cpr, fn) => {
         return () => fn(cpr());
@@ -20,8 +20,8 @@ function compose(fns: FunctionArray) {
 // })
 // koa-compose源码实现也差不多 这里可以看到next调用时直接调用的 这也是中间件为什么需要await的原因
 function KoaCompose(middlewares: FunctionArray) {
-  return (ctx) => {
-    function run(index) {
+  return (ctx: any) => {
+    function run(index: number) {
       let fn = middlewares[index];
       if (!fn) return Promise.resolve();
       try {

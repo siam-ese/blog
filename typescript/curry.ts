@@ -18,12 +18,12 @@ function currying(fn: AnyFuncton, ...args: any[]): any {
   args = args.filter((v) => isDef(v));
   return args.length >= fn.length
     ? fn(...args)
-    : (...ars) => currying(fn.bind(null, ...args), ...ars);
+    : (...ars: any[]) => currying(fn.bind(null, ...args), ...ars);
 }
 
-function currying2(fn: AnyFuncton, ...args): any {
+function currying2(fn: AnyFuncton, ...args: any[]): any {
   args = args.filter((v) => isDef(v));
   return args.length >= fn.length
     ? fn(...args)
-    : (...ars) => currying2(fn, ...args.concat(ars));
+    : (...ars: any[]) => currying2(fn, ...args.concat(ars));
 }
