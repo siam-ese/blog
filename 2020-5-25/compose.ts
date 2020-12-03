@@ -18,7 +18,7 @@ function compose(fns: FunctionArray) {
 // koa middleware
 // function ((ctx, next) => {
 // })
-// koa-compose源码实现也差不多 这里可以看到next调用时直接调用的 这也是中间件为什么需要await的原因
+// koa-compose源码实现也差不多 这里可以看到next调用时直接调用的 所以在中间件内部要自己去await next整个模型才是洋葱圈的模型
 function KoaCompose(middlewares: FunctionArray) {
   return (ctx: any) => {
     function run(index: number) {

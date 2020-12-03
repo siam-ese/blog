@@ -1,5 +1,5 @@
 const { getOptions } = require('loader-utils');
-const validateOptions = require('schema-utils');
+const { validate } = require('schema-utils');
 
 const schema = {
   additionalProperties: true,
@@ -42,7 +42,7 @@ const schema = {
 function loader(content) {
   const options = getOptions(this) || {}
 
-  validateOptions(schema, options);
+  validate(schema, options);
 
   options.min = options.min || 0
   // content的大小不能小于设定的最小值，且配置有upload方法上传文件
@@ -65,4 +65,4 @@ function loader(content) {
 }
 
 module.exports = loader;
-module.exports.raw = true;
+module.exports.raw = true; // raw 为true时，context传入的为二进制格式
