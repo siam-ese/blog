@@ -1,6 +1,9 @@
 const { getOptions } = require('loader-utils');
 const { validate } = require('schema-utils');
-
+const fs = require('fs');
+const { promisify } = require('util');
+const readFile = promisify(fs.readFile);
+const path = require('path');
 const schema = {
   additionalProperties: true,
   properties: {
@@ -49,9 +52,21 @@ function loader(content) {
   if (content.length >= options.min && typeof options.upload === 'function') {
 
     const callback = this.async(); // 调用loader的async,告诉loader runner是异步loader 它会返回一个callback 等同于this.callback
-    options.upload.call(this, (url) => {
-      callback(null, options.esModule ? `export default '${url}'` : `module.exports='${url}'`)
-    })
+
+    readFile(this.resourcePath)
+      .then(file => {
+        const uploadData = {
+          file,
+          filename: path.basename(this.resourcePath),
+          done: (url) => {
+            callback(null, options.esModule ? `export default '${url}'` : `module.exports='${url}'`)
+          },
+        }
+
+        options.upload.call(this, uploadData)
+      })
+
+
   } else { // 没有的话改fallback方案处理，默认是url-loader
     const { loader = 'url-loader', options: fallbackOptions = {} } = options.fallback || {}
 
